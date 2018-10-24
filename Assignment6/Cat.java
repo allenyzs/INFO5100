@@ -1,19 +1,21 @@
 package Assignment6;
 
+import java.util.Date;
+
 public class Cat extends Pet implements Boardable{
     private String hairLength;
     private int[] boardStart;
     private int[] boardEnd;
-
+    
     public Cat(String name, String ownerName, String color, String hairLength){
         super(name, ownerName, color);
         this.hairLength = hairLength;
     }
-
+    
     public String getHairLength() {
         return hairLength;
     }
-
+    
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("CAT:" + "\n");
@@ -23,7 +25,7 @@ public class Cat extends Pet implements Boardable{
         sb.append("Hair: " + getHairLength() + "\n");
         return sb.toString();
     }
-
+    
     @Override
     public void setBoardEnd(int month, int day, int year) {
         if (1 <= month && month <= 12){
@@ -37,7 +39,7 @@ public class Cat extends Pet implements Boardable{
             }
         }
     }
-
+    
     @Override
     public void setBoardStart(int month, int day, int year) {
         if (1 <= month && month <= 12){
@@ -51,29 +53,29 @@ public class Cat extends Pet implements Boardable{
             }
         }
     }
-
+    
     @Override
     public boolean boarding(int month, int day, int year) {
-        if (boardStart == null){
+        Date date = new Date(year, month, day);
+        Date start = new Date(boardStart[2], boardStart[0], boardStart[1]);
+        Date end = new Date(boardEnd[2], boardEnd[0], boardEnd[1]);
+        if (date.before(start)){
             return false;
-        } else if (year < boardStart[2]){
+        } else if (date.after(end)){
             return false;
-        } else if (boardStart[2] == year && month < boardStart[1]){
-            return false;
-        } else if (boardStart[2] == year && boardStart[1] == month && day < boardStart[0]){
-            return false;
-        } else {
+        } else{
             return true;
         }
     }
-
+    
     public static void main(String[] args){
         Cat newCat = new Cat("Tom", "Bob", "Black", "Short");
         newCat.setSex(2);
         newCat.setBoardStart(10, 25, 1993);
-
+        newCat.setBoardEnd(11, 05, 2018);
+        
         System.out.println(newCat.toString());
         System.out.println(newCat.boarding(11, 05, 2018));
-        newCat.setBoardEnd(11, 05, 2018);
+        
     }
 }

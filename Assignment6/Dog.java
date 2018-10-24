@@ -1,19 +1,21 @@
 package Assignment6;
 
+import java.util.Date;
+
 public class Dog extends Pet implements Boardable{
     private String size;
     private int[] boardStart;
     private int[] boardEnd;
-
+    
     public Dog(String name, String ownerName, String color, String size){
         super(name, ownerName, color);
         this.size = size;
     }
-
+    
     public String getSize(){
         return size;
     }
-
+    
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("DOG:" + "\n");
@@ -23,7 +25,7 @@ public class Dog extends Pet implements Boardable{
         sb.append("Size: " + getSize() + "\n");
         return sb.toString();
     }
-
+    
     @Override
     public void setBoardEnd(int month, int day, int year) {
         if (1 <= month && month <= 12){
@@ -37,7 +39,7 @@ public class Dog extends Pet implements Boardable{
             }
         }
     }
-
+    
     @Override
     public void setBoardStart(int month, int day, int year) {
         if (1 <= month && month <= 12){
@@ -51,29 +53,29 @@ public class Dog extends Pet implements Boardable{
             }
         }
     }
-
+    
     @Override
     public boolean boarding(int month, int day, int year) {
-        if (boardStart == null){
+        Date date = new Date(year, month, day);
+        Date start = new Date(boardStart[2], boardStart[0], boardStart[1]);
+        Date end = new Date(boardEnd[2], boardEnd[0], boardEnd[1]);
+        if (date.before(start)){
             return false;
-        } else if (year < boardStart[2]){
+        } else if (date.after(end)){
             return false;
-        } else if (boardStart[2] == year && month < boardStart[1]){
-            return false;
-        } else if (boardStart[2] == year && boardStart[1] == month && day < boardStart[0]){
-            return false;
-        } else {
+        } else{
             return true;
         }
     }
-
+    
     public static void main(String[] args){
         Dog newDog = new Dog("Spot", "Susan", "White", "Medium");
         newDog.setSex(2);
         newDog.setBoardStart(10, 25, 1993);
-
-        System.out.println(newDog.toString());
-        System.out.println(newDog.boarding(11, 05, 2018));
         newDog.setBoardEnd(11, 05, 2018);
+        
+        System.out.println(newDog.toString());
+        System.out.println(newDog.boarding(11, 05, 2011));
+        
     }
 }
