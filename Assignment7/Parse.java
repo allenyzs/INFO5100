@@ -1,4 +1,4 @@
-package Assignment7;
+package assignment7;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,8 +15,6 @@ public class Parse {
                 System.out.println(line);
             }
             return;
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
         } catch (IOException e){
             e.printStackTrace();
         } finally {

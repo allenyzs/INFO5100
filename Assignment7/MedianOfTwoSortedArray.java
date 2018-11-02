@@ -1,4 +1,4 @@
-package Assignment7;
+package assignment7;
 
 public class MedianOfTwoSortedArray {
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {

@@ -1,4 +1,4 @@
-package Assignment7;
+package assignment7;
 
 public class MyIndexOutOfBoundException extends Exception{
     public int lowerBound;
